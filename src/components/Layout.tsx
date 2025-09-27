@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { useAuth } from '@/contexts/AuthContext';
 import { 
   LayoutDashboard, 
   Map, 
@@ -12,7 +14,8 @@ import {
   Waves,
   Menu,
   Bell,
-  User
+  User,
+  LogOut
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -31,6 +34,7 @@ const navigation = [
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,9 +47,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Waves className="w-5 h-5 text-white" />
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-bold text-lg text-ocean">Blue</span>
-              <span className="font-bold text-lg text-forest">Carbon</span>
-              <span className="text-sm text-muted-foreground ml-1">MRV</span>
+              <span className="font-bold text-lg text-forest">EcoSangam</span>
+              <span className="text-sm text-muted-foreground ml-1">Blue Carbon MRV</span>
             </div>
           </div>
 
@@ -72,13 +75,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </nav>
 
           {/* User Actions */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
+            <Badge variant="outline" className="text-xs">
+              {user?.role} - {user?.organization}
+            </Badge>
             <Button variant="ghost" size="sm">
               <Bell className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="sm">
-              <User className="w-4 h-4" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium">{user?.name}</span>
+              <Button variant="ghost" size="sm" onClick={logout}>
+                <LogOut className="w-4 h-4" />
+              </Button>
+            </div>
             <Button className="md:hidden" variant="ghost" size="sm">
               <Menu className="w-4 h-4" />
             </Button>
@@ -96,7 +105,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="px-6 py-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <div className="flex items-center gap-4">
-              <span>© 2024 BluCarbon MRV Platform</span>
+              <span>© 2024 EcoSangam Platform</span>
               <span>•</span>
               <span>Powered by Blockchain & Earth Observation</span>
             </div>
