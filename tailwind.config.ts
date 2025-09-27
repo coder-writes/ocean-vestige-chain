@@ -22,6 +22,22 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          hover: "hsl(var(--primary-hover))",
+        },
+        // Blue Carbon Design System
+        ocean: {
+          DEFAULT: "hsl(var(--ocean-blue))",
+          dark: "hsl(var(--ocean-blue-dark))",
+          light: "hsl(var(--ocean-blue-light))",
+        },
+        forest: {
+          DEFAULT: "hsl(var(--forest-green))",
+          dark: "hsl(var(--forest-green-dark))",
+          light: "hsl(var(--forest-green-light))",
+        },
+        carbon: {
+          DEFAULT: "hsl(var(--carbon-gray))",
+          light: "hsl(var(--carbon-gray-light))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
