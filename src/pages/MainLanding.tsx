@@ -144,13 +144,13 @@ const MainLanding: React.FC = () => {
           <div className="text-center">
             <p className="text-gray-600 mb-4">In partnership with</p>
             <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-500">
-              <span>Ministry of Environment, Forest & Climate Change</span>
+              <span>Ministry of Earth and Science</span>
               <span>•</span>
               <span>Indian Space Research Organisation (ISRO)</span>
               <span>•</span>
-              <span>Quality Council of India</span>
+              <span>Smart India Hackathon</span>
               <span>•</span>
-              <span>State Forest Departments</span>
+              <span>National Centre for Coastal Research</span>
             </div>
           </div>
         </div>

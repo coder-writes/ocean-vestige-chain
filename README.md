@@ -2,6 +2,12 @@
 
 A revolutionary **blockchain-based** Monitoring, Reporting, and Verification (MRV) system for India's blue carbon ecosystem restoration projects. This decentralized platform ensures transparency, accuracy, and immutable carbon credit generation through advanced blockchain technology.
 
+## 🌐 **Live Demo**
+
+**🔗 [Visit EcoSangam Platform](https://ecosangam.risshi.me)**
+
+Experience the blockchain-powered blue carbon MRV system in action. Explore our interactive dashboards, project monitoring tools, and tokenized carbon credit marketplace.
+
 ## 🚀 **Blockchain-Powered Solution**
 
 **Problem Statement:** Blue carbon ecosystem restoration is gaining importance in India's climate strategy. However, there is no decentralized, verifiable MRV system that ensures transparency, accuracy, and carbon credit generation.
