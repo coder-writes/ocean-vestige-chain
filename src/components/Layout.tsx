@@ -15,7 +15,11 @@ import {
   Menu,
   Bell,
   User,
-  LogOut
+  LogOut,
+  Smartphone,
+  Building,
+  CheckSquare,
+  Plane
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -24,11 +28,15 @@ interface LayoutProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Projects', href: '/projects', icon: Map },
+  { name: 'Map', href: '/map', icon: Waves },
   { name: 'Monitoring', href: '/monitoring', icon: Database },
   { name: 'Verification', href: '/verification', icon: Shield },
   { name: 'Marketplace', href: '/marketplace', icon: TrendingUp },
+  { name: 'Field Data', href: '/field-data', icon: Smartphone },
+  { name: 'MRV System', href: '/mrv-verification', icon: CheckSquare },
+  { name: 'NCCR Admin', href: '/nccr-admin', icon: Building },
   { name: 'Settings', href: '/settings', icon: Settings },
 ];
 
@@ -48,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             </div>
             <div className="flex items-center gap-1">
               <span className="font-bold text-lg text-forest">EcoSangam</span>
-              <span className="text-sm text-muted-foreground ml-1">Blue Carbon MRV</span>
+              <span className="text-sm text-muted-foreground ml-1">India Blue Carbon</span>
             </div>
           </div>
 
@@ -105,9 +113,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <div className="px-6 py-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <div className="flex items-center gap-4">
-              <span>© 2024 EcoSangam Platform</span>
+              <span>© 2024 EcoSangam India</span>
               <span>•</span>
-              <span>Powered by Blockchain & Earth Observation</span>
+              <span>Protecting India's Blue Carbon Ecosystems</span>
             </div>
             <div className="flex items-center gap-1">
               <Leaf className="w-4 h-4 text-forest" />

@@ -5,6 +5,10 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { StatCard } from '@/components/ui/stat-card';
 import MapComponent from '@/components/MapComponent';
+import GoogleMapComponent from '@/components/GoogleMapComponent';
+import NewProjectDialog from '@/components/NewProjectDialog';
+import { useProjects, Project } from '@/contexts/ProjectContext';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Search, 
   Filter, 
@@ -19,59 +23,35 @@ import {
   MoreHorizontal
 } from 'lucide-react';
 
-const mockProjects = [
-  {
-    id: '1',
-    name: 'Mangrove Restoration Site Alpha',
-    location: 'Florida Keys, USA',
-    coordinates: [-81.5, 24.7] as [number, number],
-    area: '45.2 ha',
-    status: 'verified' as const,
-    credits: 1250,
-    ndvi: 0.85,
-    startDate: '2023-06-15',
-    lastUpdate: '2024-01-15',
-    description: 'Large-scale mangrove restoration in critical coastal protection area'
-  },
-  {
-    id: '2',
-    name: 'Seagrass Conservation Project Beta',
-    location: 'Chesapeake Bay, USA',
-    coordinates: [-76.2, 38.9] as [number, number],
-    area: '67.8 ha',
-    status: 'active' as const,
-    credits: 890,
-    ndvi: 0.78,
-    startDate: '2023-08-20',
-    lastUpdate: '2024-01-10',
-    description: 'Seagrass meadow restoration and protection initiative'
-  },
-  {
-    id: '3',
-    name: 'Salt Marsh Protection Gamma',
-    location: 'San Francisco Bay, USA',
-    coordinates: [-122.3, 37.8] as [number, number],
-    area: '32.1 ha',
-    status: 'pending' as const,
-    credits: 0,
-    ndvi: 0.72,
-    startDate: '2024-01-05',
-    lastUpdate: '2024-01-12',
-    description: 'New salt marsh restoration project awaiting verification'
-  },
-];
+
 
 const Projects: React.FC = () => {
+  const { projects, addProject } = useProjects();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState<'all' | 'verified' | 'active' | 'pending'>('all');
+  type StatusType = 'all' | 'verified' | 'active' | 'pending';
+  const [selectedStatus, setSelectedStatus] = useState<StatusType>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
-  const filteredProjects = mockProjects.filter(project => {
+  const filteredProjects = projects.filter(project => {
     const matchesSearch = project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          project.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = selectedStatus === 'all' || project.status === selectedStatus;
     return matchesSearch && matchesStatus;
   });
+
+  // Transform projects for MapComponent
+  const mapProjects = filteredProjects.map(project => ({
+    id: project.id,
+    name: project.name,
+    coordinates: [project.coordinates.longitude, project.coordinates.latitude] as [number, number],
+    status: project.status,
+    area: project.area,
+    type: project.type,
+    credits: project.credits,
+    lastUpdate: project.lastUpdate,
+    description: project.description,
+  }));
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -82,8 +62,20 @@ const Projects: React.FC = () => {
     }
   };
 
-  const totalCredits = mockProjects.reduce((sum, project) => sum + project.credits, 0);
-  const totalArea = mockProjects.reduce((sum, project) => sum + parseFloat(project.area), 0);
+  const totalCredits = projects.reduce((sum, project) => sum + project.credits, 0);
+  const totalArea = projects.reduce((sum, project) => sum + project.area, 0);
+
+  const handleProjectCreated = (newProject: Project) => {
+    addProject(newProject);
+  };
+
+  const handleProjectClick = (projectId: string) => {
+    // You could implement project detail view here
+    toast({
+      title: "Project Selected",
+      description: `Viewing details for project ${projectId}`,
+    });
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -95,17 +87,14 @@ const Projects: React.FC = () => {
             Manage your blue carbon restoration and conservation projects
           </p>
         </div>
-        <Button className="bg-ocean hover:bg-ocean-dark">
-          <Plus className="w-4 h-4 mr-2" />
-          Create New Project
-        </Button>
+        <NewProjectDialog onProjectCreated={handleProjectCreated} />
       </div>
 
       {/* Summary Stats */}
       <div className="grid gap-4 md:grid-cols-4">
         <StatCard
           title="Total Projects"
-          value={mockProjects.length}
+          value={projects.length}
           subtitle="restoration sites"
           icon={<MapPin />}
           variant="ocean"
@@ -126,7 +115,7 @@ const Projects: React.FC = () => {
         />
         <StatCard
           title="Verified Projects"
-          value={mockProjects.filter(p => p.status === 'verified').length}
+          value={projects.filter(p => p.status === 'verified').length}
           subtitle="certified sites"
           icon={<Shield />}
           variant="forest"
@@ -154,7 +143,7 @@ const Projects: React.FC = () => {
                   key={status}
                   variant={selectedStatus === status ? 'default' : 'outline'}
                   size="sm"
-                  onClick={() => setSelectedStatus(status as any)}
+                  onClick={() => setSelectedStatus(status as StatusType)}
                   className={selectedStatus === status ? 'bg-ocean hover:bg-ocean-dark' : ''}
                 >
                   {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -188,7 +177,11 @@ const Projects: React.FC = () => {
         <Card>
           <CardContent className="p-0">
             <div className="h-[600px]">
-              <MapComponent projects={filteredProjects} />
+              <GoogleMapComponent 
+                projects={mapProjects} 
+                onProjectClick={handleProjectClick}
+                showControls={true}
+              />
             </div>
           </CardContent>
         </Card>
@@ -218,7 +211,7 @@ const Projects: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
                     <p className="text-muted-foreground">Area</p>
-                    <p className="font-semibold">{project.area}</p>
+                    <p className="font-semibold">{project.area} ha</p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">NDVI</p>
@@ -264,10 +257,7 @@ const Projects: React.FC = () => {
                 : 'Get started by creating your first blue carbon project'
               }
             </p>
-            <Button className="bg-ocean hover:bg-ocean-dark">
-              <Plus className="w-4 h-4 mr-2" />
-              Create New Project
-            </Button>
+            <NewProjectDialog onProjectCreated={handleProjectCreated} />
           </CardContent>
         </Card>
       )}

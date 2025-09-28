@@ -17,51 +17,51 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Demo credentials
+// Demo credentials for India Blue Carbon Platform
 const demoUsers: { [key: string]: User } = {
-  'admin@ecosangam.org': {
+  'admin@ecosangam.in': {
     id: '1',
-    name: 'Admin User',
-    email: 'admin@ecosangam.org',
+    name: 'Dr. Rajesh Kumar',
+    email: 'admin@ecosangam.in',
     role: 'admin',
-    organization: 'EcoSangam Platform'
+    organization: 'EcoSangam India Platform'
   },
-  'ngo@example.org': {
+  'ngo@mangrovealliance.org': {
     id: '2',
-    name: 'NGO Manager',
-    email: 'ngo@example.org',
+    name: 'Priya Sharma',
+    email: 'ngo@mangrovealliance.org',
     role: 'ngo',
-    organization: 'Green Earth NGO'
+    organization: 'India Mangrove Alliance'
   },
-  'panchayat@village.gov': {
+  'panchayat@sundarbans.gov.in': {
     id: '3',
-    name: 'Panchayat Officer',
-    email: 'panchayat@village.gov',
+    name: 'Amit Mondal',
+    email: 'panchayat@sundarbans.gov.in',
     role: 'panchayat',
     organization: 'Sundarbans Panchayat'
   },
-  'gov@environment.gov': {
+  'gov@moef.gov.in': {
     id: '4',
-    name: 'Government Official',
-    email: 'gov@environment.gov',
+    name: 'Dr. Meera Nair',
+    email: 'gov@moef.gov.in',
     role: 'government',
-    organization: 'Ministry of Environment'
+    organization: 'Ministry of Environment, Forest & Climate Change'
   },
-  'verifier@carbon.org': {
+  'verifier@qci.org.in': {
     id: '5',
-    name: 'Carbon Verifier',
-    email: 'verifier@carbon.org',
+    name: 'Dr. Suresh Patel',
+    email: 'verifier@qci.org.in',
     role: 'verifier',
-    organization: 'Carbon Standards International'
+    organization: 'Quality Council of India'
   }
 };
 
 const demoPasswords: { [key: string]: string } = {
-  'admin@ecosangam.org': 'admin123',
-  'ngo@example.org': 'ngo123',
-  'panchayat@village.gov': 'panchayat123',
-  'gov@environment.gov': 'gov123',
-  'verifier@carbon.org': 'verifier123'
+  'admin@ecosangam.in': 'admin123',
+  'ngo@mangrovealliance.org': 'ngo123',
+  'panchayat@sundarbans.gov.in': 'panchayat123',
+  'gov@moef.gov.in': 'gov123',
+  'verifier@qci.org.in': 'verifier123'
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

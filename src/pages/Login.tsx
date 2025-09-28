@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Leaf, Shield, Building, Users, CheckCircle, Eye, EyeOff } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -19,42 +19,42 @@ const Login: React.FC = () => {
 
   const demoAccounts = [
     {
-      email: 'admin@ecosangam.org',
+      email: 'admin@ecosangam.in',
       password: 'admin123',
-      role: 'Admin',
-      organization: 'EcoSangam Platform',
+      role: 'System Admin',
+      organization: 'EcoSangam India Platform',
       icon: <Shield className="w-4 h-4" />,
       color: 'bg-red-500'
     },
     {
-      email: 'ngo@example.org',
+      email: 'ngo@mangrovealliance.org',
       password: 'ngo123',
-      role: 'NGO',
-      organization: 'Green Earth NGO',
+      role: 'NGO Manager',
+      organization: 'India Mangrove Alliance',
       icon: <Leaf className="w-4 h-4" />,
       color: 'bg-forest'
     },
     {
-      email: 'panchayat@village.gov',
+      email: 'panchayat@sundarbans.gov.in',
       password: 'panchayat123',
-      role: 'Panchayat',
+      role: 'Panchayat Officer',
       organization: 'Sundarbans Panchayat',
       icon: <Users className="w-4 h-4" />,
       color: 'bg-ocean'
     },
     {
-      email: 'gov@environment.gov',
+      email: 'gov@moef.gov.in',
       password: 'gov123',
-      role: 'Government',
-      organization: 'Ministry of Environment',
+      role: 'Government Official',
+      organization: 'Ministry of Environment, Forest & Climate Change',
       icon: <Building className="w-4 h-4" />,
       color: 'bg-purple-500'
     },
     {
-      email: 'verifier@carbon.org',
+      email: 'verifier@qci.org.in',
       password: 'verifier123',
-      role: 'Verifier',
-      organization: 'Carbon Standards International',
+      role: 'Carbon Verifier',
+      organization: 'Quality Council of India',
       icon: <CheckCircle className="w-4 h-4" />,
       color: 'bg-emerald-500'
     }
@@ -65,7 +65,7 @@ const Login: React.FC = () => {
     setError('');
 
     if (login(email, password)) {
-      navigate('/');
+      navigate('/dashboard');
     } else {
       setError('Invalid credentials. Please use demo accounts below.');
     }
@@ -77,25 +77,39 @@ const Login: React.FC = () => {
     setSelectedDemo(demoEmail);
     
     if (login(demoEmail, demoPassword)) {
-      navigate('/');
+      navigate('/dashboard');
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-ocean via-ocean-light to-forest flex items-center justify-center p-4">
-      <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
-        {/* Login Form */}
-        <Card className="w-full shadow-2xl">
-          <CardHeader className="text-center">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <Leaf className="w-8 h-8 text-forest" />
-              <h1 className="text-2xl font-bold text-forest">EcoSangam</h1>
-            </div>
-            <CardTitle className="text-2xl">Welcome Back</CardTitle>
-            <CardDescription>
-              Sign in to your Blue Carbon MRV account
-            </CardDescription>
-          </CardHeader>
+    <div className="min-h-screen bg-gradient-to-br from-ocean via-ocean-light to-forest">
+      {/* Navigation Header */}
+      <div className="w-full px-4 py-4">
+        <div className="flex justify-between items-center max-w-4xl mx-auto">
+          <Link to="/" className="flex items-center gap-2 text-white hover:text-ocean-light transition-colors">
+            <Leaf className="w-6 h-6" />
+            <span className="font-semibold">Back to Home</span>
+          </Link>
+          <Link to="/signup" className="text-white hover:text-ocean-light transition-colors">
+            Need to register? <span className="underline">Sign up here</span>
+          </Link>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-center p-4 pt-8">
+        <div className="w-full max-w-4xl grid md:grid-cols-2 gap-8">
+          {/* Login Form */}
+          <Card className="w-full shadow-2xl">
+            <CardHeader className="text-center">
+              <div className="flex items-center justify-center gap-2 mb-4">
+                <Leaf className="w-8 h-8 text-forest" />
+                <h1 className="text-2xl font-bold text-forest">EcoSangam</h1>
+              </div>
+              <CardTitle className="text-2xl">Welcome Back</CardTitle>
+              <CardDescription>
+                Sign in to your Blue Carbon MRV account
+              </CardDescription>
+            </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
@@ -180,6 +194,7 @@ const Login: React.FC = () => {
             ))}
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   );

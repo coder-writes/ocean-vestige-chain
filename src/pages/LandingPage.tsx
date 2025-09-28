@@ -64,14 +64,14 @@ const LandingPage: React.FC = () => {
         <div className="relative container mx-auto px-6 py-24 lg:py-32">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl lg:text-6xl font-bold tracking-tight mb-6">
-              <span className="text-ocean">Blockchain-Powered</span><br />
+              <span className="text-ocean">India's Premier</span><br />
               <span className="text-forest">Blue Carbon MRV</span><br />
-              <span className="text-foreground">& Carbon Credits</span>
+              <span className="text-foreground">Platform</span>
             </h1>
             
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Revolutionary platform combining satellite monitoring, AI analytics, and blockchain technology 
-              to verify and trade blue carbon credits from coastal ecosystem restoration projects.
+              Transforming India's coastal ecosystem restoration through advanced satellite monitoring, AI analytics, and blockchain technology 
+              to verify and trade blue carbon credits from mangroves, seagrass beds, and salt marshes.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
